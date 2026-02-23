@@ -10,7 +10,7 @@ cd "$ROOT_DIR"
 docker compose run --rm flyway
 
 # 2) Copiar dump (ruta absoluta al archivo en el repo)
-docker cp "$ROOT_DIR/urb_data_only.dump" 0NIX_db:/tmp/urb_data_only.dump
+docker cp "$ROOT_DIR/iniciar_db/urb_data_only.dump" 0NIX_db:/tmp/urb_data_only.dump
 
 # 3) Restore data-only excluyendo flyway_schema_history
 docker exec -t --env-file "$ROOT_DIR/.env" 0NIX_db sh -lc \
