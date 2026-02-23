@@ -1,0 +1,85 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: 0NIX_db
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+    networks:
+      - urbango_network
+
+  flyway:
+    image: flyway/flyway:latest
+    container_name: urbango_flyway
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      -url=jdbc:postgresql://db:5432/${POSTGRES_DB}
+      -user=${POSTGRES_USER}
+      -password=${POSTGRES_PASSWORD}
+      -schemas=urb,urb_sistema
+      -connectRetries=60
+      migrate
+    volumes:
+      - ./db/migrations:/flyway/sql:ro
+    networks:
+      - urbango_network
+    restart: "no"
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - urbango_network
+
+  traccar:
+    container_name: urbango_traccar
+    image: traccar/traccar:latest
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+      flyway:
+        condition: service_completed_successfully
+    volumes:
+      - traccar_data:/opt/traccar/data
+      - ./traccar.xml:/opt/traccar/conf/traccar.xml:ro
+    ports:
+      - "8082:8082"
+      - "5013:5013"
+    networks:
+      - urbango_network
+
+volumes:
+  db_data:
+  pgadmin_data:
+  traccar_data:
+  cron_logs:
+
+networks:
+  urbango_network:
+    driver: bridge
