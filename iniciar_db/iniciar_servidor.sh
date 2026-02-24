@@ -6,14 +6,14 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$ROOT_DIR"
 
-# 1) Migraciones
+# 1) Migraciones con Flyway
 docker compose run --rm flyway
 
-# 2) Copiar dump (ruta absoluta al archivo en el repo)
-docker cp "$ROOT_DIR/iniciar_db/urb_data_only.dump" 0NIX_db:/tmp/urb_data_only.dump
+# 2) Copiar dump al contenedor
+docker cp "$ROOT_DIR/iniciar_db/dump_data_only.sql" 0NIX_db:/tmp/dump_data_only.sql
 
-# 3) Restore data-only excluyendo flyway_schema_history
-docker exec -t --env-file "$ROOT_DIR/.env" 0NIX_db sh -lc \
-'pg_restore -U "$POSTGRES_USER" -d "$POSTGRES_DB" --data-only -n urb -n urb_sistema \
-  -T urb.flyway_schema_history -T urb_sistema.flyway_schema_history \
-  /tmp/urb_data_only.dump'
+# 3) Restore data-only usando psql (es .sql, NO pg_restore)
+docker exec -t 0NIX_db bash -c \
+  "PGPASSWORD='0N1X_2025' psql -U 0N1X -d urbango \
+    --set ON_ERROR_STOP=on \
+    -f /tmp/dump_data_only.sql"
