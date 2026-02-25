@@ -20,8 +20,59 @@ services:
     networks:
       - urbango_network
 
+  traccar:
+    container_name: urbango_traccar
+    image: traccar/traccar:6.5
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+      flyway:
+        condition: service_completed_successfully
+    volumes:
+      - traccar_data:/opt/traccar/data
+      - ./traccar.xml:/opt/traccar/conf/traccar.xml:ro
+    ports:
+      - "8082:8082"
+      - "5013:5013"
+    networks:
+      - urbango_network
+
+  node:
+    image: node:20-alpine
+    container_name: urbango_node
+    restart: always
+    working_dir: /app
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+    command: sh -c "npm install && node src/index.js"
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASS: ${POSTGRES_PASSWORD}
+      GOOGLE_PLACES_API_KEY: ${GOOGLE_PLACES_API_KEY}
+      NODE_ENV: production
+      PORT: 3000
+    depends_on:
+      db:
+        condition: service_healthy
+      flyway:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      - urbango_network
   flyway:
-    image: flyway/flyway:latest
+    image: flyway/flyway:10.10
     container_name: urbango_flyway
     depends_on:
       db:
@@ -56,29 +107,10 @@ services:
     networks:
       - urbango_network
 
-  traccar:
-    container_name: urbango_traccar
-    image: traccar/traccar:latest
-    restart: always
-    depends_on:
-      db:
-        condition: service_healthy
-      flyway:
-        condition: service_completed_successfully
-    volumes:
-      - traccar_data:/opt/traccar/data
-      - ./traccar.xml:/opt/traccar/conf/traccar.xml:ro
-    ports:
-      - "8082:8082"
-      - "5013:5013"
-    networks:
-      - urbango_network
-
 volumes:
   db_data:
   pgadmin_data:
   traccar_data:
-  cron_logs:
 
 networks:
   urbango_network:
