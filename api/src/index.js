@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const { createServer } = require('http');
 const pool = require('./db');
 require('./jobs/actualizarPois');
 
@@ -23,6 +22,10 @@ app.use('/api', require('./routes/index'));
 // Error handler global (debe ir al final)
 app.use(require('./middlewares/errorHandler'));
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => console.log(`🚀 Urbango API corriendo en :${PORT}`));
-
-process.on('SIGTERM', () => server.close(() => pool.end()));
+const server = app.listen(PORT, () => {
+  console.log(`🚀 Urbango API corriendo en :${PORT}`);
+});
+// Cierre limpio
+process.on('SIGTERM', () => {
+  server.close(() => pool.end());
+});
