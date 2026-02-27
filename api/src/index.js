@@ -22,12 +22,6 @@ app.use('/api', require('./routes/index'));
 
 // Error handler global (debe ir al final)
 app.use(require('./middlewares/errorHandler'));
-
-const server = createServer(app);
-
-// WebSockets
-require('./websockets/index')(server);
-
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => console.log(`🚀 Urbango API corriendo en :${PORT}`));
 
