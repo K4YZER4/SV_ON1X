@@ -3,12 +3,16 @@ sudo apt update
 sudo apt install -y git
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
+
 ## Crear SSH Keys
 ssh-keygen -t ed25519 -C "ec2-deploy" -f ~/.ssh/id_ed25519
+
 # Ver SSH Key
 cat ~/.ssh/id_ed25519.pub
+
 ## User ssh key en github
 Repo->Settings->Deploy Keys->Add Key->Copy Key 
+
 ## Instalar docker y docker compose en servidor 
 sudo apt update
 sudo apt install -y ca-certificates curl gnupg
@@ -22,7 +26,28 @@ sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
 ## GIT Clone
 Clonar el repo mediate ssh
+
 ## Creacion de .env
 nano .env
+
+## Iniciar Docker 
+docker compose up -d
+
+## Iniciar DB
+
+Utilizar scripts de ./iniciar_db/iniciar_servidor.sh
+
+# Dar permisos de ejecución al script
+bash
+chmod +x ./iniciar_db/iniciar_servidor.sh
+
+El chmod +x le dice al sistema operativo "este archivo puede ejecutarse como programa". Sin esto, aunque intentes correrlo, Linux te dice Permission denied.
+
+# Ejecutarlo
+bash
+sudo ./iniciar_db/iniciar_servidor.sh
+
+El sudo es necesario porque el script probablemente corre comandos de Docker o instala paquetes que requieren permisos de administrador.
+
 
 
