@@ -9,14 +9,16 @@ Registro de errores encontrados durante la creación y mantenimiento del servido
 **Síntoma:** `docker compose up` falla, no puede descargar imágenes.
 
 **Diagnóstico:**
+```bash
 df -h                            # Ver espacio del disco
 df -i                            # Ver inodes disponibles
 sudo du -sh /var/lib/docker      # Cuánto ocupa Docker
 sudo du -sh /var/lib/containerd  # Cuánto ocupa containerd
 docker system df                 # Resumen de uso de Docker
-Solución:
+```
 
-bash
+**Solución:**
+```bash
 # Eliminar imágenes, contenedores y volúmenes sin uso
 docker system prune -a
 
@@ -25,3 +27,4 @@ docker container prune
 
 # Solo limpiar imágenes sin usar
 docker image prune -a
+```
