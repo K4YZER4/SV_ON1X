@@ -1,7 +1,7 @@
-# Servidor_UGO (UrbanGO Server)
+# Servidor_UGO
 
 Backend de UrbanGO para cálculo de rutas óptimas, consulta de POIs y walking directions.  
-Migrado de **Python/FastAPI** a **Node.js/Express** en febrero 2026.
+Migrado de **Python/FastAPI** a **Node.js/Express** .
 
 ## Stack actual
 - **Node.js 20 + Express** — API REST
