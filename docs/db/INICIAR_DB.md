@@ -1,3 +1,6 @@
+### Requisitos minimos del servidor
+
+
 ## Instalar el git
 sudo apt update
 sudo apt install -y git
