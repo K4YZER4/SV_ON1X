@@ -19,3 +19,4 @@ Migrado de **Python/FastAPI** a **Node.js/Express** .
 - **[Jobs / Cron](docs/JOBS.md)** — Tareas programadas automáticas
 - **[Modelo DB](docs/db/MODELO_DB.md)** — Diagrama de la base de datos
 - **[Problemas conocidos](docs/problems/PROBLEMS.md)** — Errores frecuentes y sus soluciones
+- **[Requisitos](docs/infraestructura/requisitos.md)** — Requisitos minimos y recomendados de la instancia
