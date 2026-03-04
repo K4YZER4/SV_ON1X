@@ -2,4 +2,4 @@
 
 ### Diagrama
 
-![Flujo de Datos](flujo_datos.svg)
+![Flujo de Datos](./flujo_datos.svg)
