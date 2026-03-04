@@ -12,10 +12,10 @@ Migrado de **Python/FastAPI** a **Node.js/Express** .
 - **node-cron** — Tareas programadas (reemplaza contenedor cron separado)
 
 ## Documentación
-- **[Iniciar servidor](docs/iniciar_db.md)** — Cómo configurar y levantar desde cero
-- **[API Reference](docs/API_REFERENCE.md)** — Endpoints, parámetros y ejemplos
+- **[Iniciar servidor](docs/db/INICIAR_DB.md)** — Cómo configurar y levantar desde cero
+- **[API Reference](docs/api/API_REFERENCE.md)** — Endpoints, parámetros y ejemplos
 - **[Infraestructura](docs/infraestructura/INFRAESTRUCTURA.md)** — Servicios Docker y arquitectura
 - **[Variables de entorno](docs/ENVIROMENT.md)** — Todas las variables necesarias
 - **[Jobs / Cron](docs/JOBS.md)** — Tareas programadas automáticas
-- **[Modelo DB](docs/MODELO_DB.md)** — Diagrama de la base de datos
-- **[Problemas conocidos](docs/problems/problems.md)** — Errores frecuentes y sus soluciones
+- **[Modelo DB](docs/db/MODELO_DB.md)** — Diagrama de la base de datos
+- **[Problemas conocidos](docs/problems/PROBLEMS.md)** — Errores frecuentes y sus soluciones
