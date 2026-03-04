@@ -20,3 +20,4 @@ Migrado de **Python/FastAPI** a **Node.js/Express** .
 - **[Modelo DB](docs/db/MODELO_DB.md)** — Diagrama de la base de datos
 - **[Problemas conocidos](docs/problems/PROBLEMS.md)** — Errores frecuentes y sus soluciones
 - **[Requisitos](docs/infraestructura/requisitos.md)** — Requisitos minimos y recomendados de la instancia
+- **[Flujo de Datos](docs/infraestructura/flujo_datos.md)** — Flujo de datos de las apis
