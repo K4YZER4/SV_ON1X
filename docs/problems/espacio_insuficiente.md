@@ -1,12 +1,4 @@
-# Problemas conocidos y soluciones
-
-Registro de errores encontrados durante la creación y mantenimiento del servidor.
-
----
-
-## 1. Espacio insuficiente — no levanta imágenes Docker
-
-**Síntoma:** `docker compose up` falla, no puede descargar imágenes.
+**Síntoma:** `docker compose up` falla, no puede descargar imágenes o el espacio del servidor es insuficiente para alguna otra tarea debido a archivos que ya no se usan de docker.
 
 **Diagnóstico:**
 ```bash
