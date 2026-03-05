@@ -1,17 +1,25 @@
 ## Flujo de Datos
 
 ### Flujo Principal
-
-![Flujo Principal](./flujo_principal.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./flujo_principal_dark.svg">
+  <img alt="Flujo Principal" src="./flujo_principal.svg">
+</picture>
 
 ### Flujo de Rutas
-
-![Flujo de Rutas](./flujo_ruta.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./flujo_ruta_dark.svg">
+  <img alt="Flujo de Rutas" src="./flujo_ruta.svg">
+</picture>
 
 ### Flujo de POIs
-
-![Flujo de POIs](./flujo_poi.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./flujo_poi_dark.svg">
+  <img alt="Flujo de POIs" src="./flujo_poi.svg">
+</picture>
 
 ### Flujo de POIs y Paradas
-
-![Flujo de POIs y Paradas](./flujo_poi_paradas.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./flujo_poi_paradas_dark.svg">
+  <img alt="Flujo de POIs y Paradas" src="./flujo_poi_paradas.svg">
+</picture>
